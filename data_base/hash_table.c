@@ -133,12 +133,7 @@ void ht_traverse(HashTable *ht, void (*f)(char *key, Pointer data)) {
     }
 }
 
-///* Изменить размер базового массива.
-/// * Примерный алгоритм: выделить новый массив table и перенести в него все
-/// * существующие структуры List из старой table, затем старую освободить и
-/// * заменить новой.
-/// * Это эффективнее, чем создавать новую таблицу и делать в нее полноценные
-/// * вставки.
+///* Изменить размер базового массива *///
 void ht_resize(HashTable *ht, size_t new_size) {
     List *newtable = calloc(new_size, sizeof(struct List));
     if (newtable == NULL) {
