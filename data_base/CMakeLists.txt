@@ -3,4 +3,4 @@ project(data_base C)
 
 set(CMAKE_C_STANDARD 11)
 
-add_executable(data_base main.c hash_table.c hash_table.h quick_sort.c quick_sort.h)
+add_executable(data_base main.c hash_table.c hash_table.h quick_sort.c quick_sort.h DataBase.c DataBase.h Page.c Page.h)

@@ -6,7 +6,7 @@ typedef void (*Destructor)(Pointer);
 
 typedef struct ListNode{
     char *key;
-    Pointer data;
+    const void **data;
     struct ListNode *next;
 } ListNode;
 typedef struct List{

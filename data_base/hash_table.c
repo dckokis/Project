@@ -43,7 +43,6 @@ void ht_destroy(HashTable *ht) {
         ListNode **node =&(ht->table[i].head);
         while ((*node) != NULL) {
             ht->dtor((*node)->data);
-            //node->data = NULL;
             ListNode **next = &((*node)->next);
             (*node) = *next;
         }
@@ -60,7 +59,6 @@ Pointer ht_set(HashTable *ht, char *key, Pointer data) {
     ListNode **node = &(ht->table[hash].head);
     while ((*node) != NULL) {
         if (strcmp((*node)->key, key) == 0) {
-            // нужно позвать деструктор
             ht->dtor((*node)->data);
             (*node)->data = data;
         } else {
