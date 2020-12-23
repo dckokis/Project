@@ -8,10 +8,6 @@
 
 ///* Создать новую базу данных *///
 void dbInit(DataBase *db, size_t page_amount, char *db_name, char *db_meta_name) {
-    if (db == NULL) {
-        printf("You cannot init NULL-db!");
-        exit(1);
-    }
     db->DataBaseName = db_name;
     db->dbMetaDataFile = db_meta_name;
     db->dbSize = page_amount;
@@ -29,10 +25,6 @@ void dbInit(DataBase *db, size_t page_amount, char *db_name, char *db_meta_name)
 
 ///* Добавить страницу в базу данных *///
 Pointer dbAddPage(DataBase *db, Page *pg) {
-    if (pg == NULL) {
-        printf("You cannot add NULL-page!");
-        exit(1);
-    }
     int i = 0;
     while (strcmp(db->pages[i].PageName, "Empty") != 0) {
         i++;
@@ -64,10 +56,6 @@ void dbDestroy(DataBase *db) {
 
 ///* Добавить данные в базу данных на заданную страницу *///
 Pointer dbAdd(DataBase *db, char *key, Pointer data, const char *PageName) {
-    if (strcmp(key, NULL) == 0) {
-        printf("You cannot put NULL-key data!");
-        exit (1);
-    }
     int i = 0;
     while (strcmp(db->pages[i].PageName, PageName) != 0) {
         i++;
@@ -79,10 +67,6 @@ Pointer dbAdd(DataBase *db, char *key, Pointer data, const char *PageName) {
 
 ///* Проверить наличие данных в базе *///
 int dbHas(DataBase *db, char *key) {
-    if (strcmp(key, NULL) == 0) {
-        printf("You cannot use NULL-key!");
-        exit (1);
-    }
     for (int i = 0; i < db->dbSize; i++) {
         if (strcmp(db->pages[i].PageName, "Empty") != 0) {
             if (ht_has(&db->pages[i].ht, key) == 1) {
@@ -96,10 +80,6 @@ int dbHas(DataBase *db, char *key) {
 
 ///* Найти данные в базе *///
 Pointer dbFind(DataBase *db, char *key) {
-    if (strcmp(key, NULL) == 0) {
-        printf("You cannot use NULL-key!");
-        exit (1);
-    }
     if (dbHas(db, key) == 0) {
         return 0;
     } else {

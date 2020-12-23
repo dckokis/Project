@@ -48,7 +48,6 @@ int main() {
 
     assert(dbHas(&test_db, "IVANOV") == 1);
     assert(dbHas(&test_db, "PETROV") == 0);
-    assert(dbHas(&test_db, NULL) == 0);
     saveDb(&test_db);
     dbDestroy(&test_db);
 

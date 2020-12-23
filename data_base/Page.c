@@ -8,10 +8,6 @@
 
 ///* Создать новую страницу *///
 void pgInit(Page *pg, size_t page_size, char *Name, char *MetaFileName, size_t KeySize, size_t DataSize, Destructor dtor) {
-    if (pg == NULL) {
-        printf("You cannot init NULL-page!");
-        exit(1);
-    }
     pg->pgSize = page_size;
     pg->elemSize = DataSize;
     pg->keySize = KeySize;
