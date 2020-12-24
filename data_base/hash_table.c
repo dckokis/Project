@@ -6,6 +6,10 @@
 
 ///* Jenkins Hash Function *///
 unsigned jenkins_one_at_a_time_hash(char *key) {
+    if (key == NULL) {
+        printf("Using NULL-key is forbidden!");
+        exit(1);
+    }
     unsigned hash = 0;
 
     for (; *key; ++key) {

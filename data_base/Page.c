@@ -42,12 +42,11 @@ Pointer pgFromFile(Page *pg, char *filename, char *metafilename) {
         printf(FILE_OPENING_ERROR"pgFromFile||metadata\n");
         exit(1);
     }
-    fscanf(source_file, "%d", &(pg->pgSize));
-    fscanf(metadata, "%d\n%d", &(pg->keySize), &(pg->elemSize));
+    fscanf(metadata, "%d\n%d\n%d",&(pg->pgSize), &(pg->keySize), &(pg->elemSize));
     char *key = NULL;
     Pointer data = NULL;
     for (int i = 0; i < pg->pgSize; i++) {
-        fscanf(source_file, "%s", key);
+        fscanf(source_file, "%s\n", key);
         fread(data, pg->elemSize, 1, source_file);
         ht_set(&pg->ht, key, data);
         key = NULL;
@@ -70,18 +69,15 @@ void pgToFile(Page *pg) {
         printf(FILE_OPENING_ERROR"pgToFile||metadata\n");
         exit(1);
     }
-    fprintf(metadata, "%d\n", pg->keySize);
-    fprintf(metadata, "%d\n", pg->elemSize);
+    fprintf(metadata, "%d\n%d\n%d", pg->pgSize, pg->keySize, pg->elemSize);
     for (int i = 0; i < pg->pgSize; i++) {
-        if (strcmp(pg->PageName, "Empty") != 0) {
-            if (pg->ht.table[i].head != NULL) {
-                fwrite(pg->ht.table[i].head->key, pg->keySize, 1, destination_file);
-                fprintf(destination_file,"\n");
-                if ((pg->ht.table[i].head->data) == NULL) {
-                    fprintf(destination_file, "%s", "NULL");
-                } else {
-                    fwrite(*(pg->ht.table[i].head->data), pg->elemSize, 1, destination_file); //!!!!!!!!!!!!!!!!
-                }
+        ListNode **node = &(pg->ht.table[i].head);
+        if ((*node) != NULL) {
+            char *key = (*node)->key;
+            Pointer *data = (Pointer *) (*node)->data;
+            if (key != NULL && data != NULL) {
+                fprintf(destination_file, "%s\n", key);
+                fwrite(*data, pg->elemSize, 1, destination_file);
             }
         }
     }

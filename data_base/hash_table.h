@@ -28,4 +28,5 @@ int ht_has(HashTable *ht, char *key);
 void ht_delete(HashTable *ht, char *key);
 void ht_traverse(HashTable *ht, void (*f)(char *key, Pointer data));
 void ht_resize(HashTable *ht, size_t new_size);
+
 #endif //HASH_TABLE_HASH_TABLE_H

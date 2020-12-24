@@ -1,4 +1,3 @@
-#include <crtdbg.h>
 #include "DataBase.h"
 #include "Page.h"
 
@@ -9,11 +8,10 @@
 #define MEMORY_ERROR_MESSAGE "Failing allocating memory in function:"
 #define FILE_OPENING_ERROR "Failing opening file in function:"
 
-
 typedef struct USERS {
+    int age;
     char *Name;
     char *Surname;
-    int age;
 } USERS;
 
 void destructor(Pointer data) {
@@ -48,17 +46,10 @@ int main() {
 
     assert(dbHas(&test_db, "IVANOV") == 1);
     assert(dbHas(&test_db, "PETROV") == 0);
+
     saveDb(&test_db);
     dbDestroy(&test_db);
 
-    _CrtSetReportMode( _CRT_WARN, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_WARN, _CRTDBG_FILE_STDOUT );
-    _CrtSetReportMode( _CRT_ERROR, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ERROR, _CRTDBG_FILE_STDOUT );
-    _CrtSetReportMode( _CRT_ASSERT, _CRTDBG_MODE_FILE );
-    _CrtSetReportFile( _CRT_ASSERT, _CRTDBG_FILE_STDOUT );
-
-    _CrtDumpMemoryLeaks();
     return 0;
 }
 
